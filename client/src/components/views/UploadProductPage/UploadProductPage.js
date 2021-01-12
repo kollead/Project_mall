@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {Typography, Button, Form, Input} from 'antd';
+import FileUpload from '../../utils/FileUpload';
 
 
 //const {Title} = Typography;
@@ -19,7 +20,7 @@ function UploadProductPage() {
     const [Title, setTitle] =useState("")
     const [Description, setDescription] = useState("")
     const [Price, setPrice] = useState(0)
-    const [continent, setContinent] = useState(1)
+    const [Continent, setContinent] = useState(1)
 
     const titleChangeHandler =(event) => {
         setTitle(event.currentTarget.value)
@@ -46,6 +47,7 @@ function UploadProductPage() {
             <Form>
 
                 {/* DropZone */}
+                <FileUpload />
                 <br />
                 <br />
                 <label>이름</label>
@@ -60,10 +62,9 @@ function UploadProductPage() {
                 <Input type="number" onChange={priceChangeHandler} value={Price}/>
                 <br />
                 <br />
-                <select onChange={continentChangeHandler
-                }>
+                <select onChange={continentChangeHandler}>
                     {Continents.map( item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
+                        <option key={item.key} value={Continent}>{item.value}</option>
                     ))}
                 </select>
                 <br />
