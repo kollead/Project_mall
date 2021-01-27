@@ -6,6 +6,7 @@ import ImageSlider from "../../utils/ImageSlider";
 import CheckBox from './Sections/CheckBox';
 import {continents, price} from './Sections/Datas';
 import RadioBox from './Sections/RadioBox';
+import SearchFeature from './Sections/SearchFeature'
 
 
 function LandingPage() {
@@ -29,6 +30,7 @@ function LandingPage() {
         getProducts(body)
         
     }, [])
+    const [SearchTerm, setSearchTerm] = useState("")
 
 
     const getProducts = (body) => {
@@ -114,7 +116,20 @@ function LandingPage() {
         }
 
         showFilterResults(newFilters)
-        
+        setFilters(newFilters)
+    }
+
+    const updateSearchTerm= (newSearchTerm) =>{
+        setSearchTerm(newSearchTerm)
+        let body = {
+            skip: 0,
+            limit: Limit,
+            filter: Filters,
+            searchTerm: newSearchTerm
+        }
+        setSkip(0)
+        setSearchTerm(newSearchTerm)
+        getProducts(body)
     }
     
     return (
@@ -138,7 +153,11 @@ function LandingPage() {
             </Row>
 
             {/* Search */}
-
+            <div style={{display:'flex', justifyContent: 'flex-end', margin: '1rm auto'}}>
+            <SearchFeature 
+                refreshFunction={updateSearchTerm}
+            />
+            </div>
             {/* Cards */}
             
             <Row gutter={[16,16]}>
