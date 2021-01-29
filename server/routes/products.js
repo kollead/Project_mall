@@ -113,6 +113,6 @@ router.get('/products_by_id', (req, res)=>{
 
 })
 
-axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
+
 
 module.exports = router;
