@@ -1,7 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ImageGallery from 'react-image-gallery';
 
 function ProductImage(props) {
+
+    const [Images, setImages] = useState([])
+
     useEffect(() => {
         if(props.detail.images && props.detail.images.length>0){
             let images =[]
@@ -11,13 +14,14 @@ function ProductImage(props) {
                     thumbnail:`http://localhost:5000/${item}`
                 })
             })
+            setImages(images)
         }       
-    }, [])
-    const images=[];
+    }, [props.detail]) //props.detail의 값이 바뀔 때마다 라이프사이클을 한 번 더 실행 
+    
 
     return (
         <div>
-            <ImageGallery items={images}/>
+            <ImageGallery items={Images}/>
         </div>
     )
 }
