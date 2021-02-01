@@ -1,8 +1,7 @@
-import { Descriptions } from 'antd'
 import React from 'react'
 import {Button, Descriptions} from 'antd'
 import {useDispatch} from 'react-redux'
-import {addDoCart} from '../../../../_actions/user_actions'
+import {addToCart} from '../../../../_actions/user_actions'
 
 function ProductInfo(props) {
 
