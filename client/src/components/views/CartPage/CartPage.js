@@ -33,11 +33,16 @@ function CartPage(props) {
         setTotal(total)
     }
 
+    let removeFromCart = (productId) => {
+        dispatch(removeCartItems(productId))
+        .then(response=>{})
+    }
+
     return (
         <div style={{width: '85%', margin: '3rem auto'}}>
             <h1>My Cart</h1>
             <div>
-                <UserCardBlock products={props.user.cartDetail}/>
+                <UserCardBlock products={props.user.cartDetail} removeItem={removeFromCart}/>
             </div>
             <div style={{marginTop: '3rem'}}>
                 <h2>Total Amount: ${Total}</h2>
