@@ -111,3 +111,19 @@ export function removeCartItem(productId){
         payload: request
     }
 }
+
+export function onSuccessBuy(data){
+    
+    const request = axios.post(`/api/users/successBuy`, data)
+    .then(response => {
+        
+            
+        
+      
+    });
+
+    return{
+        type: REMOVE_CART_ITEM,
+        payload: request
+    }
+}
