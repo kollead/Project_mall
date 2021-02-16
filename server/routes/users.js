@@ -4,6 +4,7 @@ const { User } = require("../models/User");
 
 const { auth } = require("../middleware/auth");
 const { Product } = require('../models/Product');
+const {Payment} = require('../models/Payment')
 
 //=================================
 //             User
@@ -178,10 +179,26 @@ router.post('/successBuy', auth, (req, res)=>{
         User.findOneAndUpdate(
             {_id:req.user._id},
             {$push: {history: history}, $set:{cart:[]}},
-            {new: true}
+            {new: true},
+            (err, user)=>{
+                if(err) return res.json({success: false, err})
+
+                //payment 에다 transactionsData 정보 저장
+                const payment=new Payment(transactionData)
+                payment.save((err, doc)=>{
+                    if(err) return res.json({success: false, err})
+                    //3. Product model 의 Sold 필드 수량 업데이트 해주기
+                    //상품 당 몇 개의 quantity 를 샀는지
+                    let products = []
+                    doc.product.forEach(item =>{
+                        products.push({id: item.id, quantity: item.quantity})
+                    })
+
+                
+                })
+            }
         )
 
-        //3. Product model 의 Sold 필드 수량 업데이트 해주기
         
         
 
