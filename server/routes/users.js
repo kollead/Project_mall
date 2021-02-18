@@ -4,7 +4,8 @@ const { User } = require("../models/User");
 
 const { auth } = require("../middleware/auth");
 const { Product } = require('../models/Product');
-const {Payment} = require('../models/Payment')
+const {Payment} = require('../models/Payment');
+const async = require('async');
 
 //=================================
 //             User
@@ -189,9 +190,27 @@ router.post('/successBuy', auth, (req, res)=>{
                     if(err) return res.json({success: false, err})
                     //3. Product model 의 Sold 필드 수량 업데이트 해주기
                     //상품 당 몇 개의 quantity 를 샀는지
-                    let products = []
+                    let products = [];
                     doc.product.forEach(item =>{
                         products.push({id: item.id, quantity: item.quantity})
+                    })
+
+                    async.eachSeries(products,(item, callback)=>{
+                        Product.update(
+                            {_id: item.id},
+                            {$inc: {
+                                "sold": item.quantity
+                            }},
+                            {new: false},
+                            callback
+                            )
+                    }, (err)=>{
+                        if(err) return res.status(400).json({success: false, err})
+                        res.status(200).json({
+                            success: true,
+                            cart:user.cart,
+                            cartDetail: []
+                        })
                     })
 
                 
