@@ -19,7 +19,7 @@ const paymentSchema = mongoose.Schema({
 }, {timestamp: true})
 
 
-productSchema.index({
+paymentSchema.index({
     title: 'text',
     description: 'text'
 },{weights:{
@@ -27,6 +27,6 @@ productSchema.index({
     desctiption:1
 }})
 
-const Payment = mongoose.model('Payment', paymenttSchema);
+const Payment = mongoose.model('Payment', paymentSchema);
 
 module.exports = { Payment }

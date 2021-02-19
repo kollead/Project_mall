@@ -158,7 +158,7 @@ router.post('/successBuy', auth, (req, res)=>{
         let history =[];
         let transactionData={};
 
-        req.body.caartDetail.forEach((item)=>{
+        req.body.cartDetail.forEach((item)=>{
             history.push({
                 dateOfPusrchase: Date.now(),
                 name: item.title,
