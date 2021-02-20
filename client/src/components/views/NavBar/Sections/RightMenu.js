@@ -19,6 +19,18 @@ function RightMenu(props) {
     });
   };
 
+  const showCount = () => {
+    let cartQuantity = 0
+
+    if(user.userData && user.userData.cart.length>0){
+      user.userData.cart.forEach(element => {
+        cartQuantity+=element.quantity
+      })
+    }
+
+    return cartQuantity
+  }
+
   if (user.userData && !user.userData.isAuth) {
     return (
       <Menu mode={props.mode}>
@@ -31,14 +43,14 @@ function RightMenu(props) {
       </Menu>
     )
   } else {
-    return (
-      
+    
+    return (      
       <Menu mode={props.mode}>
         <Menu.Item key="upload">
           <a href="/product/upload">Upload</a>
         </Menu.Item>
         <Menu.Item key="cart" style={{paddingBottom: 3}}>          
-          <Badge count={user.userData && user.userData.cart.length}>
+          <Badge count={showCount()}>
           <a href="/user/cart" className="head-example" style={{marginRight:-22, color: '#667777'}}>
             <Icon type="shopping-cart" style={{fontSize:30, marginBottom: 3}}></Icon>
           </a>
